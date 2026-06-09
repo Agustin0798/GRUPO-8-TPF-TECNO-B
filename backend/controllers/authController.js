@@ -30,9 +30,8 @@ class AuthController
             }
 
             //Nueva validación de registro
-            //Saco espacios vacíos (sanitizar) y valido longitud
             //si contraseña está vacia o es menor a 6 tira estado 400 Bad Request y corta
-            if(password.trim().length<6){
+            if(!password || password.length < 6){
                 return res.status(400).jason({error:"Contraseña demasiado corta"})
             }
 

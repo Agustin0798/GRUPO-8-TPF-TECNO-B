@@ -29,6 +29,13 @@ class AuthController
                 return res.status(400).json({ message: "Usuario y contraseña son requeridos." });
             }
 
+            //Nueva validación de registro
+            //Saco espacios vacíos (sanitizar) y valido longitud
+            //si contraseña está vacia o es menor a 6 tira estado 400 Bad Request y corta
+            if(password.trim().length<6){
+                return res.status(400).jason({error:"Contraseña demasiado corta"})
+            }
+
             const hashedPassword = await bcrypt.hash(password, 10);            
             
             // 2. Creación mediante el repositorio (que usa el SP sp_create_user)

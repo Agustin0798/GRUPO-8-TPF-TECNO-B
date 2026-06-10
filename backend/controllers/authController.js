@@ -30,9 +30,9 @@ class AuthController
             }
 
             //Nueva validación de registro
-            //si contraseña está vacia o es menor a 6 tira estado 400 Bad Request y corta
-            if(!password || password.length < 6){
-                return res.status(400).jason({error:"Contraseña demasiado corta"})
+            //si contraseña está vacia o es menor a 6 devuelve estado 400 Bad Request 
+            if( password.length < 6){
+                return res.status(400).json({error:"Contraseña demasiado corta"})
             }
 
             const hashedPassword = await bcrypt.hash(password, 10);            

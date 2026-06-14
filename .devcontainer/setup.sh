@@ -32,11 +32,11 @@ echo "Creando archivo .env..."
 cat <<EOF > .env
 PORT=3000
 DB_HOST=localhost
-DB_USER=samplevault
-DB_PASS=samplevault
-DB_NAME=samplevault
+DB_USER=samplevaultest
+DB_PASS=samplevaultest
+DB_NAME=samplevaultest
 JWT_SECRET=tu_clave_secreta_super_segura
-NODE_ENV=production
+NODE_ENV=testing
 EOF
 
 echo "🚀 Configuración de entorno completada con éxito."

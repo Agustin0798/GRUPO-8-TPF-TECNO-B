@@ -73,7 +73,7 @@ testUtils.createTestButton("Test Subida - Archivo Bajo el Limite de Peso", async
     const data = await response.json();
     testUtils.log(data);
 
-    // Este test espera un 200, no un 413
-    if (response.status === 200) testUtils.setSuccess(btn);
+    // Este test espera un 201, no un 413
+    if (response.status === 201) testUtils.setSuccess(btn);
 
 });

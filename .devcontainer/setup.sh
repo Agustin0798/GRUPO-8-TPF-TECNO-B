@@ -36,7 +36,7 @@ DB_USER=samplevault
 DB_PASS=samplevault
 DB_NAME=samplevault
 JWT_SECRET=tu_clave_secreta_super_segura
-NODE_ENV=production
+NODE_ENV=testing
 EOF
 
 echo "🚀 Configuración de entorno completada con éxito."

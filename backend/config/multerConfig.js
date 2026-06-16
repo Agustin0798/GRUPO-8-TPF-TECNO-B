@@ -14,6 +14,7 @@
  * o memoria, filtrado de tipos y límites de tamaño, añadiendo un objeto
  * file o files al objeto request.
  */
+
 const multer = require('multer');
 // const path = require('path');
 
@@ -41,7 +42,11 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-const upload = multer({ storage, fileFilter });
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 10 * 1024 * 1024 } // Límite de 10MB por archivo
+ });
 
 // 'audioFile' es el nombre del campo en el formulario
 module.exports = upload.single('audioFile');

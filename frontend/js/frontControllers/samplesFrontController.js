@@ -14,7 +14,7 @@ async function loadSamples() {
         renderSamplesTable(samples);
     } catch (error) {
 
-        // Intercepción estricta del error de seguridad (401)
+        // Intercepción estricta del error de seguridad
         if (error.status === 401) {
             const modal = document.getElementById('security-modal');
             const btnRelogin = document.getElementById('btn-relogin');
@@ -27,7 +27,7 @@ async function loadSamples() {
 
             return; // Corto la ejecución
         }
-        
+
         // Si es otro tipo de error, sigue usando el modal "viejo"
         showModal('Error', 'No se pudieron cargar los samples: ' + error.message);
     }

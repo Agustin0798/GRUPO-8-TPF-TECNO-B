@@ -22,7 +22,7 @@ router.use(verifyToken);
 router.post('/upload', uploadMiddleware, sampleController.uploadSample);
 
 // Listar mis samples: GET /api/samples/my-samples
-router.get('/my-samples', sampleController.getMySamples);
+router.get('/my-samples', authMiddleware.verifyToken, sampleController.getMySamples);
 
 // Eliminar un sample: DELETE /api/samples/:id
 router.delete('/:id', sampleController.deleteSample);

@@ -28,8 +28,8 @@ echo "Creando archivo .env..."
 cat <<EOF > .env
 PORT=3000
 DB_HOST=localhost
-DB_USER=samplevaultest
-DB_PASS=samplevaultest
+DB_USER=pepe
+DB_PASS=12345
 DB_NAME=samplevaultest
 JWT_SECRET=tu_clave_secreta_super_segura
 NODE_ENV=testing

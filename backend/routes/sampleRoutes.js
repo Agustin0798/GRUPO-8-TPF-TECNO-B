@@ -10,7 +10,7 @@ const router = express.Router();
 const sampleController = require('../controllers/sampleController');
 
 //configuración de Multer para subir archivos de audio:
-const uploadMiddleware = require('../config/multerConfig');
+const { uploadMiddleware } = require('../config/multerConfig');
 
 const { verifyToken } = require('../middleware/authMiddleware');
 

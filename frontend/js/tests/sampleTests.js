@@ -49,8 +49,14 @@ testUtils.createTestButton("Test Subir Sample (Simulado)", async (btn) => {
     formData.append('category', 'Drums');
     formData.append('bpm', '120');
 
-    // Simulamos un archivo WAV (binario vacío para la prueba)
-    const blob = new Blob(["Simulated Audio Content"], { type: 'audio/wav' });
+    // Cabecera mínima de WAV: empieza con RIFF (magic bytes válidos)
+    // El servidor valida solo los primeros bytes, no que sea un WAV completo
+    const wavHeader = new Uint8Array([
+        0x52, 0x49, 0x46, 0x46,  // "RIFF"
+        0x00, 0x00, 0x00, 0x00,  // tamaño (0, no importa para el test)
+        0x57, 0x41, 0x56, 0x45   // "WAVE"
+    ]);
+    const blob = new Blob([wavHeader], { type: 'audio/wav' });
     formData.append('audioFile', blob, 'DRUM_LOOP_01.wav');
 
     const response = await fetch('/api/samples/upload', {

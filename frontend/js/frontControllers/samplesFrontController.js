@@ -13,6 +13,22 @@ async function loadSamples() {
         const samples = await apiService.request('/samples/my-samples', 'GET');
         renderSamplesTable(samples);
     } catch (error) {
+
+        // Intercepción estricta del error de seguridad (401)
+        if (error.status === 401) {
+            const modal = document.getElementById('security-modal');
+            const btnRelogin = document.getElementById('btn-relogin');
+            
+            modal.showModal(); // Muestro el modal nativo
+            
+            btnRelogin.addEventListener('click', () => {
+                authHelper.logout(); // Uso tu helper para limpiar y salir
+            }, { once: true });
+
+            return; // Corto la ejecución
+        }
+        
+        // Si es otro tipo de error, sigue usando el modal "viejo"
         showModal('Error', 'No se pudieron cargar los samples: ' + error.message);
     }
 }

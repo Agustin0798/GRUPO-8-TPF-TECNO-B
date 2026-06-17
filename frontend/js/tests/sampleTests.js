@@ -120,3 +120,38 @@ testUtils.createTestButton("Test MIME Inconsistente (.wav falso → 415)", async
         btn.className = "w3-button w3-block w3-section w3-round w3-red";
     }
 });
+
+/**
+ * Test de Seguridad: POST /api/samples/my-samples (Token Corrupto)
+ */
+testUtils.createTestButton("Test Seguridad: Token Corrupto (Error 401)", async (btn) => {
+    // 1. Obtener sesión válida usando la función ya existente en este archivo
+    await okLogin();
+    
+    // 2. Buscar el token y romperlo
+    const tokenKey = localStorage.getItem('test_token') ? 'test_token' : 
+                     localStorage.getItem('jwt_token') ? 'jwt_token' : 'token';
+    const tokenValido = localStorage.getItem(tokenKey);
+    const tokenRoto = tokenValido.slice(0, -1);
+
+    // 3. Enviar la petición al endpoint protegido con el token roto
+    const response = await fetch('/api/samples/my-samples', {
+        method:  'GET',
+        headers: { 'Authorization': `Bearer ${tokenRoto}` }
+    });
+
+    const data = await response.json();
+    testUtils.log(data);
+
+    // 4. Verificar que el servidor nos rechazó correctamente
+    if (response.status === 401 && data.message === "Sesión inválida o corrompida. Vuelva a iniciar sesión") {
+        testUtils.setSuccess(btn); // Botón Verde
+    } else {
+        testUtils.log({ 
+            error: "El test falló: El backend no devolvió el 401 esperado", 
+            statusRecibido: response.status, 
+            mensajeRecibido: data.message 
+        }, true);
+        btn.className = "w3-button w3-block w3-section w3-round w3-red"; // Botón Rojo
+    }
+});

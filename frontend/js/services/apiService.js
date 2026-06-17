@@ -30,7 +30,7 @@ const apiService = {
         // Si la respuesta no es OK (incluyendo el 401), lanzo el error enriquecido
         if (!response.ok) {
             const error = new Error(result.message || 'Error en la petición');
-            error.status = response.status; 
+            error.status = response.status; // Inyecto status 401
             throw error;
         }
         return result;

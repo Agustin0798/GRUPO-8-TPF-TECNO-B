@@ -13,6 +13,20 @@ async function loadSamples() {
         const samples = await apiService.request('/samples/my-samples', 'GET');
         renderSamplesTable(samples);
     } catch (error) {
+
+        if (error.status === 401) {
+            const modal = document.getElementById('security-modal');
+            const btnRelogin = document.getElementById('btn-relogin');
+            
+            modal.showModal(); 
+            
+            btnRelogin.addEventListener('click', () => {
+                authHelper.logout(); 
+            }, { once: true });
+
+            return; // Corta la ejecución para que no se muestre el error genérico abajo
+        }
+
         showModal('Error', 'No se pudieron cargar los samples: ' + error.message);
     }
 }

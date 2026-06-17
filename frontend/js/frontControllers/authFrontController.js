@@ -49,7 +49,12 @@ if (registerForm)
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-
+        //Validacion en vista
+        //Optimizo valdiando antes de llevar al backend
+        if(!password || password.length <6 ){
+            showModal('Error de Registro','Contraseña demasiado corta. Debe tener al menos 6 caracteres.');
+            return;
+        }
         try 
         {
             await apiService.request('/auth/register', 'POST', { username, password });

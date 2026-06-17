@@ -27,10 +27,12 @@ const apiService = {
         const response = await fetch(`${API_URL}${endpoint}`, config);
         const result = await response.json();
 
-        // Si el token expiró (401), forzamos logout automático
-        if (response.status === 401) authHelper.logout();
-
-        if (!response.ok) throw new Error(result.message || 'Error en la petición');
+        // Si la respuesta no es OK (incluyendo el 401), lanzo el error enriquecido
+        if (!response.ok) {
+            const error = new Error(result.message || 'Error en la petición');
+            error.status = response.status; // Inyecto status 401
+            throw error;
+        }
         return result;
     }
 };

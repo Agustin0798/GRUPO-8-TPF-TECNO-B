@@ -87,7 +87,7 @@ testUtils.createTestButton("Test Seguridad: Token Corrupto (Error 401)", async (
     testUtils.log(data);
 
     // 4. Verificar que el servidor me rechazo correctamente
-    if (response.status === 401 && data.message === "Sesión inválida o corrompida. Vuelva a iniciar sesión") {
+    if (response.status === 401 && data.message === "Sesión inválida o corrompida. Vuelva a iniciar sesión.") {
         testUtils.setSuccess(btn); // Boton Verde
     } else {
         testUtils.log({ 

@@ -40,7 +40,7 @@ router.post(
 );
 
 // Listar mis samples: GET /api/samples/my-samples
-router.get('/my-samples', sampleController.getMySamples);
+router.get('/my-samples', verifyToken, sampleController.getMySamples);
 
 // Eliminar un sample: DELETE /api/samples/:id
 router.delete('/:id', sampleController.deleteSample);

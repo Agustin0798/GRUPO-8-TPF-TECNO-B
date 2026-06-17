@@ -29,7 +29,7 @@ const authMiddleware = {
         
         // Mejora: Validación de formato Bearer segura
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(403).json({ message: "Formato de token incorrecto o inexistente." });
+            return res.status(401).json({ message: "Formato de token incorrecto o inexistente." });
         }
 
         // El token o authHeader suele venir como "Bearer <token>", aquí quitamos el "Bearer ":

@@ -29,14 +29,14 @@ const authMiddleware = {
         
         // Mejora: Validación de formato Bearer segura
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ message: "Formato de token incorrecto o inexistente." });
+            return res.status(401).json({ message: "Sesión inválida o corrompida. Vuelva a iniciar sesión." });
         }
 
         // El token o authHeader suele venir como "Bearer <token>", aquí quitamos el "Bearer ":
         const pureToken = authHeader.split(" ")[1];
 
         jwt.verify(pureToken, SECRET_KEY, (err, decoded) => {
-            if (err) return res.status(401).json({ message: "Token inválido o expirado." });
+            if (err) return res.status(401).json({ message: "Sesión inválida o corrompida. Vuelva a iniciar sesión." });
             
             // Guardamos la info del usuario decodificada en el request para usarla después:
             req.userId = decoded.id;

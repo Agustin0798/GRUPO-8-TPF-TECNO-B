@@ -30,9 +30,9 @@ testUtils.createTestButton("Test Subida - Archivo Sobre el Limite de Peso", asyn
     formData.append('category', 'Drums');
     formData.append('bpm', '120');
 
-    // Crear un blob que supere el límite (11 MB > límite de 10 MB)
-    const oversizedContent = new Uint8Array(11 * 1024 * 1024);
-    oversizedContent.set([0x52, 0x49, 0x46, 0x46]); // magic bytes RIFF al inicio
+    // Enviar un blob que supere el límite de 1000 KB
+    const oversizedContent = new Uint8Array(1001 * 1024); // 1001 KB > límite de 1000 KB
+    oversizedContent.set([0x52, 0x49, 0x46, 0x46]);
     const blob = new Blob([oversizedContent], { type: 'audio/wav' });
     formData.append('audioFile', blob, 'DRUM_LOOP_GIGANTE.wav');
 
@@ -60,9 +60,9 @@ testUtils.createTestButton("Test Subida - Archivo Bajo el Limite de Peso", async
     formData.append('category', 'Drums');
     formData.append('bpm', '120');
 
-    // Crear un blob que esté dentro del límite (9 MB < límite de 10 MB)
-    const normalContent = new Uint8Array(9 * 1024 * 1024);
-    normalContent.set([0x52, 0x49, 0x46, 0x46]); // magic bytes RIFF al inicio
+    // Enviar un blob que esté dentro del límite de 1000 KB
+    const normalContent = new Uint8Array(999 * 1024); // 999 KB < límite de 1000 KB
+    normalContent.set([0x52, 0x49, 0x46, 0x46]);
     const blob = new Blob([normalContent], { type: 'audio/wav' });
     formData.append('audioFile', blob, 'DRUM_LOOP_NORMAL.wav');
 

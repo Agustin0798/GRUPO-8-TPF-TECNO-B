@@ -6,7 +6,10 @@
 */
 
 // Al cargar la página, traer los samples del usuario
-document.addEventListener('DOMContentLoaded', loadSamples);
+document.addEventListener('DOMContentLoaded', () => {
+    loadSamples();
+    checkFileSize(); // Inicializar la verificación de tamaño de archivo
+});
 
 async function loadSamples() {
     try {
@@ -108,4 +111,20 @@ if (uploadForm) {
             showModal('Error al subir', error.message);
         }
     });
+}
+
+
+// Funcion para chequear el tamaño del archivo antes de mandar form
+const checkFileSize = () => {
+
+    const fileUploadInput = document.getElementById('audioFile');
+    
+    fileUploadInput.addEventListener('change', () => {
+        const weight = (fileUploadInput.files[0].size) / 1024; // Convertir B a KB        
+        if (weight > 1000) { // Si el peso supera los 1000 KB
+            showModal('Archivo demasiado grande', 'El archivo supera el límite de 1000 KB.');
+            fileUploadInput.value = ''; // Limpia el input para que el usuario pueda elegir otro archivo
+        }
+    });
+    
 }

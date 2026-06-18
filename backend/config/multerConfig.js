@@ -76,7 +76,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage,
     fileFilter,
-    limits: { fileSize: 10 * 1024 * 1024 } // Límite de 10MB por archivo
+    limits: { fileSize: 1000 * 1024 } // Límite de 1000 KB por archivo
  });
 
 // 'audioFile' es el nombre del campo en el formulario

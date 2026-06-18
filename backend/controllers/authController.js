@@ -32,11 +32,11 @@ class AuthController
             //Nueva validación de registro
             //si contraseña está vacia o es menor a 6 devuelve estado 400 Bad Request 
             if( password.length < 6){
-                return res.status(400).json({error:"Contraseña demasiado corta"})
+                return res.status(400).json({message:"Contraseña demasiado corta.Debe tener al menos 6 caracteres."})
             }
-
-            const hashedPassword = await bcrypt.hash(password, 10);            
             
+            const hashedPassword = await bcrypt.hash(password, 10);            
+           
             // 2. Creación mediante el repositorio (que usa el SP sp_create_user)
             const userId = await userRepo.create(username, hashedPassword, 'producer');
             
